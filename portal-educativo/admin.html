@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administrativo | Insight School</title>
+<link rel="icon" href="img/logo.png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<!-- data-admin="true" activa la protección de sesión en js/app.js -->
+<body data-admin="true">
+
+<div id="adminDashboard">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="admin-sidebar">
+    <div class="d-flex align-items-center gap-2 mb-4 px-1">
+      <img src="img/logo.png" alt="Logo" style="height:38px;filter:brightness(0) invert(1);">
+      <div>
+        <strong class="d-block text-white" style="font-family:var(--fuente-display)">INSIGHT</strong>
+        <small class="text-secondary">Panel Admin</small>
+      </div>
+    </div>
+    <nav class="nav flex-column">
+      <a href="#seccionResumen" class="active"><i class="bi bi-grid-1x2"></i> Resumen</a>
+      <a href="#seccionProgramas"><i class="bi bi-mortarboard"></i> Programas</a>
+      <a href="#seccionDocentes"><i class="bi bi-people"></i> Docentes</a>
+      <a href="#seccionMensajes"><i class="bi bi-envelope"></i> Mensajes</a>
+      <a href="index.html" target="_blank"><i class="bi bi-globe"></i> Ver sitio web</a>
+      <button id="btnCerrarSesion" class="btn btn-sm btn-outline-light mt-4 w-100"><i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión</button>
+    </nav>
+  </aside>
+
+  <!-- ============ CONTENIDO ============ -->
+  <main class="admin-content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <button id="btnToggleSidebar" class="btn btn-outline-secondary d-lg-none"><i class="bi bi-list"></i></button>
+        <div>
+          <h3 class="font-display mb-0">Bienvenido, Administrador</h3>
+          <small class="text-secondary">Gestión institucional Insight School</small>
+        </div>
+      </div>
+      <button class="btn-toggle-oscuro"><i class="bi bi-moon-stars-fill"></i></button>
+    </div>
+
+    <!-- ===== RESUMEN / KPIs ===== -->
+    <section id="seccionResumen" class="mb-5">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="admin-kpi">
+            <div class="icon" style="background:var(--turquesa)"><i class="bi bi-mortarboard"></i></div>
+            <div><h3 class="mb-0" id="kpiProgramas">0</h3><small class="text-secondary">Total Programas</small></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="admin-kpi">
+            <div class="icon" style="background:var(--tinta)"><i class="bi bi-people"></i></div>
+            <div><h3 class="mb-0" id="kpiDocentes">0</h3><small class="text-secondary">Total Docentes</small></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="admin-kpi">
+            <div class="icon" style="background:#c98a2e"><i class="bi bi-envelope"></i></div>
+            <div><h3 class="mb-0" id="kpiMensajes">0</h3><small class="text-secondary">Total Mensajes</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRUD PROGRAMAS ===== -->
+    <section id="seccionProgramas" class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="font-display mb-0"><i class="bi bi-mortarboard text-turquesa me-2"></i>Programas Académicos</h5>
+        <button id="btnNuevoPrograma" class="btn-marca btn-sm"><i class="bi bi-plus-lg me-1"></i>Nuevo Programa</button>
+      </div>
+      <div class="card-marca p-0">
+        <div class="table-responsive">
+          <table class="table table-marca mb-0">
+            <thead><tr><th>ID</th><th>Nombre</th><th>Nivel</th><th>Duración</th><th>Pensión</th><th class="text-end">Acciones</th></tr></thead>
+            <tbody id="tablaProgramas"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRUD DOCENTES ===== -->
+    <section id="seccionDocentes" class="mb-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="font-display mb-0"><i class="bi bi-people text-turquesa me-2"></i>Docentes</h5>
+        <button id="btnNuevoDocente" class="btn-marca btn-sm"><i class="bi bi-plus-lg me-1"></i>Nuevo Docente</button>
+      </div>
+      <div class="card-marca p-0">
+        <div class="table-responsive">
+          <table class="table table-marca mb-0">
+            <thead><tr><th>Foto</th><th>Nombre</th><th>Especialidad</th><th>Experiencia</th><th class="text-end">Acciones</th></tr></thead>
+            <tbody id="tablaDocentes"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MENSAJES ===== -->
+    <section id="seccionMensajes" class="mb-5">
+      <h5 class="font-display mb-3"><i class="bi bi-envelope text-turquesa me-2"></i>Mensajes Recibidos</h5>
+      <div class="card-marca p-0">
+        <div class="table-responsive">
+          <table class="table table-marca mb-0">
+            <thead><tr><th>Fecha</th><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Asunto</th><th>Acciones</th></tr></thead>
+            <tbody id="tablaMensajes"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ MODAL PROGRAMA ============ -->
+<div class="modal fade" id="modalPrograma" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border-radius:var(--radio)">
+      <form id="formPrograma">
+        <input type="hidden" id="programaId">
+        <div class="modal-header">
+          <h5 class="modal-title font-display" id="tituloModalPrograma">Nuevo Programa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre del programa</label>
+              <input type="text" id="programaNombre" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Nivel</label>
+              <select id="programaNivel" class="form-select" required>
+                <option value="Inicial">Inicial</option>
+                <option value="Primaria">Primaria</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Duración</label>
+              <input type="text" id="programaDuracion" class="form-control" placeholder="Ej. 1 año académico" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Pensión referencial</label>
+              <input type="text" id="programaPension" class="form-control" placeholder="Ej. S/ 450" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">URL de imagen</label>
+              <input type="text" id="programaImg" class="form-control" placeholder="https://...">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <textarea id="programaDescripcion" class="form-control" rows="3" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn-marca">Guardar Programa</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL DOCENTE ============ -->
+<div class="modal fade" id="modalDocente" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="border-radius:var(--radio)">
+      <form id="formDocente">
+        <input type="hidden" id="docenteId">
+        <div class="modal-header">
+          <h5 class="modal-title font-display" id="tituloModalDocente">Nuevo Docente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" id="docenteNombre" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Especialidad</label>
+              <input type="text" id="docenteEspecialidad" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Experiencia</label>
+              <input type="text" id="docenteExperiencia" class="form-control" placeholder="Ej. 8 años" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">URL de foto</label>
+              <input type="text" id="docenteFoto" class="form-control" placeholder="https://...">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Breve biografía</label>
+              <textarea id="docenteBio" class="form-control" rows="3" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn-marca">Guardar Docente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
