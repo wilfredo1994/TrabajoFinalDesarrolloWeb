@@ -350,7 +350,7 @@ function inicializarLogin() {
     const usuario = document.getElementById('loginUsuario').value.trim();
     const clave = document.getElementById('loginClave').value.trim();
 
-    if (usuario === 'admin' && clave === '123456') {
+    if (usuario === 'admin1' && clave === '654321') {
       sessionStorage.setItem(LS_KEYS.SESION, 'true');
       mostrarAlerta(alertaBox, '<i class="bi bi-check-circle-fill me-2"></i>Bienvenido Administrador. Redirigiendo...', 'success');
       setTimeout(() => window.location.href = 'admin.html', 900);
